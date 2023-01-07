@@ -1,8 +1,6 @@
 const form = document.querySelector('form');
 const searchBox = document.querySelector('#search-box');
-const toggle = document.querySelector('#unit-toggle');
 const weatherKey = '641b9ba062aa0184807b1d677283f0d9';
-const unitType = 'metric';
 const unitTypes = {
   c: 'metric',
   f: 'imperial',
@@ -14,12 +12,12 @@ const unitSymbols = {
   standard: { temp: '&#8490;', wind: 'm/s' },
 };
 const backgroundImages = {
-  clear: './assets/clear-sky.jpg',
-  clouds: './assets/cloudy-sky.jpg',
-  rain: './assets/rainy-sky.jpg',
-  thunderstorm: './assets/thunderstorm.jpg',
-  snow: './assets/snowing.jpg',
-  mist: './assets/foggy.jpg',
+  clear: '../src/assets/clear-sky.jpg',
+  clouds: '../src/assets/cloudy-sky.jpg',
+  rain: '../src/assets/rainy-sky.jpg',
+  thunderstorm: '../src/assets/thunderstorm.jpg',
+  snow: '../src/assets/snowing.jpg',
+  mist: '../src/assets/foggy.jpg',
 };
 
 async function getCoord(cityName) {
@@ -28,7 +26,7 @@ async function getCoord(cityName) {
   );
 
   if (!response.ok) {
-    alert('Sorry Unable to find weather for location');
+    alert('Sorry Unable to find weather for location'); // replace with error message
     return false;
   }
 
@@ -45,12 +43,17 @@ async function getWeather(city = 'calgary', unit = 'metric') {
   );
 
   if (!response.ok) {
-    alert('Sorry Unable to find weather for location');
-    return;
+    alert('Sorry Unable to find weather for location'); // replace with error message
+    return false;
   }
 
   const weatherData = await response.json();
   return { ...weatherData, unit };
+}
+
+function getBackground(description) {
+  const background = Object.keys(backgroundImages).find((key) => description.includes(key));
+  return backgroundImages[background] || backgroundImages.mist;
 }
 
 function displayWeather(data) {
@@ -62,14 +65,14 @@ function displayWeather(data) {
   const humidity = document.querySelector('#humidity');
   const wind = document.querySelector('#wind');
   const image = document.querySelector('#image');
-  const content = document.querySelector('.content');
+
   const date = new Date();
   const { description, icon } = data.weather[0];
   location.textContent = `${data.name}, ${data.sys.country}`;
   time.textContent = `${date.toDateString()} ${date.toTimeString()}`;
   temp.innerHTML = data.main.temp + unitSymbols[data.unit].temp;
   condition.textContent = description;
-  tempFeels.innerHTML = `Feels Like: ${data.main['feels_like']}${unitSymbols[data.unit].temp}`;
+  tempFeels.innerHTML = `Feels Like: ${data.main.feels_like}${unitSymbols[data.unit].temp}`;
   humidity.textContent = `Humidity Levels: ${data.main.humidity}%`;
   wind.textContent = `Wind: ${data.wind.speed} ${unitSymbols[data.unit].wind}`;
   image.src = ` http://openweathermap.org/img/wn/${icon}.png`;
@@ -80,24 +83,9 @@ function displayWeather(data) {
   );
 }
 
-function getBackground(description) {
-  for (key in backgroundImages) {
-    if (description.includes(key)) {
-      return backgroundImages[key];
-    }
-  }
-
-  return backgroundImages.mist;
-}
-
 form.reset();
 getWeather().then((data) => {
   displayWeather(data);
-});
-
-searchBox.addEventListener('submit', (e) => {
-  e.preventDefault();
-  console.log(`Key ${e.data} input`);
 });
 
 form.addEventListener('submit', async (e) => {
