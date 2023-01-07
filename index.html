@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Weather App</title>
+		<link rel="stylesheet" href="style.css" />
+		<script src="index.js" defer></script>
+	</head>
+	<body>
+		<div class="content">
+			<div class="forecast">
+				<div class="main-weather">
+					<div class="location-section">
+						<p class="location header"></p>
+						<p class="time"></p>
+					</div>
+					<div class="weather-forcast">
+						<div class="temp-section">
+							<p class="temperature header"></p>
+							<img id="image" src="#" />
+						</div>
+						<p class="condition sub-header"></p>
+					</div>
+				</div>
+				<div class="extra-weather">
+					<span id="feels-like">Feels like: 10</span>
+					<span id="humidity">Humidity levels: 72%</span>
+					<span id="wind">Wind: 4.47 m/s</span>
+				</div>
+			</div>
+			<div class="search">
+				<form action="">
+					<p class="header">Current Weather</p>
+					<div class="search-section">
+						<label for="search" class="sub-header">Search location</label>
+						<input
+							required
+							name="location"
+							type="text"
+							id="search-box"
+							placeholder="City, Country (optional) e.g. Houston, Tx"
+						/>
+					</div>
+					<fieldset>
+						<legend>Select a unit of measurement</legend>
+
+						<span>
+							<input type="radio" name="unit" id="u1" value="c" checked />
+							<label for="u1">&deg;C</label>
+						</span>
+						<span>
+							<input type="radio" name="unit" id="u2" value="f" />
+							<label for="u2">&deg;F</label>
+						</span>
+						<span>
+							<input type="radio" name="unit" id="u3" value="k" />
+							<label for="u3">&#8490;</label>
+						</span>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
