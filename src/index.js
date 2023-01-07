@@ -1,3 +1,5 @@
+import format from 'date-fns/format';
+
 const form = document.querySelector('form');
 const searchBox = document.querySelector('#search-box');
 const weatherKey = '641b9ba062aa0184807b1d677283f0d9';
@@ -35,7 +37,6 @@ async function getCoord(cityName) {
   );
 
   if (!response.ok) {
-    console.log('not okay');
     setError('Unable to locate. Please double check your spelling.');
     return false;
   }
@@ -60,9 +61,8 @@ async function getWeather(city = 'calgary', unit = 'metric') {
 
     const weatherData = await response.json();
     return { ...weatherData, unit };
-  } catch (error) {
+  } catch (e) {
     setError('Sorry, Unable to get weather, please try again.');
-    Promise.reject(error);
     return false;
   }
 }
@@ -82,13 +82,14 @@ function displayWeather(data) {
   const wind = document.querySelector('#wind');
   const image = document.querySelector('#image');
 
-  const date = new Date();
   const { description, icon } = data.weather[0];
   location.textContent = `${data.name}, ${data.sys.country}`;
-  time.textContent = `${date.toDateString()} ${date.toTimeString()}`;
-  temp.innerHTML = data.main.temp + unitSymbols[data.unit].temp;
+  time.textContent = format(new Date(), 'EEE, MMM do hh:mm bbbb');
+  temp.innerHTML = Math.round(data.main.temp) + unitSymbols[data.unit].temp;
   condition.textContent = description;
-  tempFeels.innerHTML = `Feels Like: ${data.main.feels_like}${unitSymbols[data.unit].temp}`;
+  tempFeels.innerHTML = `Feels Like: ${Math.round(data.main.feels_like)}${
+    unitSymbols[data.unit].temp
+  }`;
   humidity.textContent = `Humidity Levels: ${data.main.humidity}%`;
   wind.textContent = `Wind: ${data.wind.speed} ${unitSymbols[data.unit].wind}`;
   image.src = ` http://openweathermap.org/img/wn/${icon}.png`;
@@ -98,12 +99,6 @@ function displayWeather(data) {
     `url(${getBackground(description)}) no-repeat center center fixed`
   );
 }
-
-form.reset();
-getWeather().then((data) => {
-  displayWeather(data);
-});
-
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const data = new FormData(form);
@@ -113,4 +108,9 @@ form.addEventListener('submit', async (e) => {
   const weatherData = await getWeather(location, unitTypes[unit]);
   displayWeather(weatherData);
   searchBox.value = '';
+});
+
+form.reset();
+getWeather().then((data) => {
+  displayWeather(data);
 });

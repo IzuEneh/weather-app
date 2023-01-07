@@ -10,6 +10,7 @@
 
 .sub-header {
 	font-size: var(--sub-heading-size);
+	text-transform: capitalize;
 }
 
 body {
@@ -46,7 +47,6 @@ body {
 	flex-direction: column;
 	align-items: center;
 	gap: 1em;
-	text-transform: capitalize;
 }
 
 .location-section {
@@ -59,6 +59,12 @@ body {
 	display: flex;
 	align-items: center;
 	gap: 10px;
+}
+
+.weather-forcast {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 img {
