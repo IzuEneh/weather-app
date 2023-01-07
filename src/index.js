@@ -1,6 +1,7 @@
 const form = document.querySelector('form');
 const searchBox = document.querySelector('#search-box');
 const weatherKey = '641b9ba062aa0184807b1d677283f0d9';
+const error = document.querySelector('.error');
 const unitTypes = {
   c: 'metric',
   f: 'imperial',
@@ -20,35 +21,50 @@ const backgroundImages = {
   mist: '../src/assets/foggy.jpg',
 };
 
+function setError(message) {
+  error.textContent = message;
+}
+
+function clearError() {
+  error.textContent = '';
+}
+
 async function getCoord(cityName) {
   const response = await fetch(
     `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${weatherKey}`
   );
 
   if (!response.ok) {
-    alert('Sorry Unable to find weather for location'); // replace with error message
+    console.log('not okay');
+    setError('Unable to locate. Please double check your spelling.');
     return false;
   }
 
+  clearError();
   const [locationData] = await response.json();
 
   return locationData;
 }
 
 async function getWeather(city = 'calgary', unit = 'metric') {
-  const { lat, lon } = await getCoord(city);
+  try {
+    const { lat, lon } = await getCoord(city);
 
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=${unit}`
-  );
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=${unit}`
+    );
 
-  if (!response.ok) {
-    alert('Sorry Unable to find weather for location'); // replace with error message
+    if (!response.ok) {
+      return false;
+    }
+
+    const weatherData = await response.json();
+    return { ...weatherData, unit };
+  } catch (error) {
+    setError('Sorry, Unable to get weather, please try again.');
+    Promise.reject(error);
     return false;
   }
-
-  const weatherData = await response.json();
-  return { ...weatherData, unit };
 }
 
 function getBackground(description) {

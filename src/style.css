@@ -131,3 +131,10 @@ fieldset {
 fieldset span:hover {
 	transform: scale(1.1);
 }
+
+.error {
+	width: 100%;
+	color: rgb(230, 3, 3);
+	font-weight: 550;
+	font-size: 1.1em;
+}
