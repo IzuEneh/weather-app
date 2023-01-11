@@ -33,7 +33,7 @@ function clearError() {
 
 async function getCoord(cityName) {
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${weatherKey}`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${weatherKey}`
   );
 
   if (!response.ok) {
@@ -92,7 +92,7 @@ function displayWeather(data) {
   }`;
   humidity.textContent = `Humidity Levels: ${data.main.humidity}%`;
   wind.textContent = `Wind: ${data.wind.speed} ${unitSymbols[data.unit].wind}`;
-  image.src = ` http://openweathermap.org/img/wn/${icon}.png`;
+  image.src = ` https://openweathermap.org/img/wn/${icon}.png`;
 
   document.body.style.setProperty(
     'background',
