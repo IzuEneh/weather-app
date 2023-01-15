@@ -15,12 +15,12 @@ const unitSymbols = {
   standard: { temp: '&#8490;', wind: 'm/s' },
 };
 const backgroundImages = {
-  clear: '../src/assets/clear-sky.jpg',
-  clouds: '../src/assets/cloudy-sky.jpg',
-  rain: '../src/assets/rainy-sky.jpg',
-  thunderstorm: '../src/assets/thunderstorm.jpg',
-  snow: '../src/assets/snowing.jpg',
-  mist: '../src/assets/foggy.jpg',
+  clear: './assets/clear-sky.jpg',
+  clouds: './assets/cloudy-sky.jpg',
+  rain: './assets/rainy-sky.jpg',
+  thunderstorm: './assets/thunderstorm.jpg',
+  snow: './assets/snowing.jpg',
+  mist: './assets/foggy.jpg',
 };
 
 function setError(message) {
