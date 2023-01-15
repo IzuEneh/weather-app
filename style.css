@@ -1,0 +1,146 @@
+:root {
+	--heading-size: 40px;
+	--sub-heading-size: 25px;
+	--p-size: 18px;
+}
+
+.header {
+	font-size: var(--heading-size);
+}
+
+.sub-header {
+	font-size: var(--sub-heading-size);
+	text-transform: capitalize;
+}
+
+body {
+	margin: 0;
+	color: white;
+	text-shadow: 2px 2px 1px black;
+}
+
+.content {
+	display: grid;
+	grid-template-columns: repeat(2, max(600px, 50%));
+	grid-template-rows: 1fr;
+	height: 100vh;
+	width: 100vw;
+}
+
+.forecast {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 20px;
+	font-size: var(--p-size);
+}
+
+.forecast p {
+	margin: 0;
+	text-align: center;
+}
+
+.main-weather {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1em;
+}
+
+.location-section {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+}
+
+.temp-section {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.weather-forcast {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+img {
+	height: 100%;
+	width: auto;
+}
+
+.extra-weather {
+	display: flex;
+	gap: 2em;
+}
+
+.search {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	height: 50%;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	font-size: var(--p-size);
+}
+
+form > p {
+	margin-bottom: 0;
+}
+
+.search-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	gap: 10px;
+}
+
+#search-box {
+	width: 100%;
+	padding: 0.3em 0;
+	font-size: var(--p-size);
+	border-radius: 5px;
+	background-image: url(https://i.pinimg.com/originals/19/65/ab/1965ab7ef7de87fe748b3c66efbfc73a.jpg);
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
+	background-position: 5px;
+	text-indent: 35px;
+	border: 1px solid grey;
+	outline: none;
+}
+
+#search-box:hover,
+#search-box:active {
+	transform: scale(1.01);
+}
+
+fieldset {
+	display: flex;
+	width: 60%;
+	justify-content: space-around;
+	font-size: var(--p-size);
+	font-weight: 600;
+}
+
+fieldset span:hover {
+	transform: scale(1.1);
+}
+
+.error {
+	width: 100%;
+	color: rgb(230, 3, 3);
+	font-weight: 550;
+	font-size: 1.1em;
+}
